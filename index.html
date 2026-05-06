@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnFlow | Stop searching. Start learning.</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Confetti for celebrations -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Sidebar Navigation (Hidden on Welcome/Onboarding) -->
+    <nav id="sidebar" class="sidebar hidden">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon"><i class="ph-fill ph-graduation-cap"></i></div>
+                <span>LearnFlow</span>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li data-target="home" class="active"><i class="ph ph-house"></i> Home</li>
+            <li data-target="goals"><i class="ph ph-target"></i> Goals</li>
+            <li data-target="path"><i class="ph ph-map-trifold"></i> Path</li>
+            <li data-target="resources"><i class="ph ph-books"></i> Resources</li>
+            <li data-target="ai"><i class="ph ph-robot"></i> AI Assistant</li>
+            <li data-target="focus"><i class="ph ph-timer"></i> Focus Mode</li>
+            <li data-target="analytics"><i class="ph ph-chart-line-up"></i> Analytics</li>
+            <li data-target="community"><i class="ph ph-users"></i> Community</li>
+        </ul>
+        <div class="user-profile-mini">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex&backgroundColor=b6e3f4" alt="User">
+            <div class="user-info">
+                <strong>Alex Doe</strong>
+                <span>Level 12 • 2.4k XP</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main id="main-content">
+        
+        <!-- Screen 1: Welcome -->
+        <section id="welcome" class="screen active">
+            <div class="welcome-container">
+                <div class="welcome-content">
+                    <div class="badge-pill pulse">✨ New Way to Learn</div>
+                    <h1 class="gradient-text-primary">LearnFlow</h1>
+                    <h2>Stop searching. <span>Start learning.</span></h2>
+                    <p>Personalized learning paths, curated resources, and progress tracking to help you crack placements, ace semesters, and build your future.</p>
+                    <div class="welcome-actions">
+                        <button class="btn btn-primary btn-large btn-glow" onclick="navigateTo('onboarding')">Start Journey <i class="ph-bold ph-arrow-right"></i></button>
+                        <button class="btn btn-secondary btn-large" onclick="navigateTo('home')">Sign In</button>
+                    </div>
+                </div>
+                <div class="welcome-illustration floating">
+                    <!-- Geometric Illustration placeholders for premium feel -->
+                    <div class="shape shape-1"></div>
+                    <div class="shape shape-2"></div>
+                    <div class="shape shape-3"></div>
+                    <div class="glass-card mockup-card">
+                        <div class="mockup-header">
+                            <i class="ph-fill ph-check-circle" style="color: var(--success);"></i>
+                            <span>DSA Array Module Completed</span>
+                        </div>
+                        <div class="progress-bar-container"><div class="progress-bar" style="width: 100%"></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 2: Onboarding -->
+        <section id="onboarding" class="screen">
+            <div class="onboarding-container">
+                <div class="onboarding-header">
+                    <button class="btn-icon" onclick="navigateTo('welcome')"><i class="ph ph-arrow-left"></i></button>
+                    <div class="step-indicator">
+                        <div class="step active"></div>
+                        <div class="step"></div>
+                        <div class="step"></div>
+                    </div>
+                </div>
+                <div class="onboarding-content glass-panel slide-up">
+                    <h2 class="gradient-text-secondary">Let's build your path</h2>
+                    <p>Tell us a bit about yourself to personalize your experience.</p>
+                    
+                    <form id="onboarding-form">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" placeholder="e.g. Alex Doe">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>College/University</label>
+                                <input type="text" placeholder="e.g. Stanford University">
+                            </div>
+                            <div class="form-group">
+                                <label>Current Year</label>
+                                <select>
+                                    <option>1st Year</option>
+                                    <option>2nd Year</option>
+                                    <option>3rd Year</option>
+                                    <option>4th Year</option>
+                                    <option>Graduated</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Learning Goal</label>
+                            <div class="goal-chips">
+                                <div class="chip active">Crack placements</div>
+                                <div class="chip">Learn programming</div>
+                                <div class="chip">Semester preparation</div>
+                                <div class="chip">Build projects</div>
+                                <div class="chip">Master DSA</div>
+                                <div class="chip">Learn AI</div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-full btn-glow mt-4" onclick="completeOnboarding()">Generate My Roadmap <i class="ph-bold ph-magic-wand"></i></button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 3: Home Dashboard -->
+        <section id="home" class="screen with-sidebar">
+            <header class="dashboard-header">
+                <div>
+                    <h1>Good Morning, Alex ☀️</h1>
+                    <p class="subtitle">Your future is built one session at a time.</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-icon"><i class="ph ph-bell"></i><span class="notification-dot"></span></button>
+                    <button class="btn-icon"><i class="ph ph-gear"></i></button>
+                </div>
+            </header>
+
+            <div class="dashboard-grid">
+                <!-- Stats Row -->
+                <div class="stats-row">
+                    <div class="stat-card glass-panel pop-in" style="animation-delay: 0.1s">
+                        <div class="stat-icon" style="background: var(--primary-light); color: var(--primary);"><i class="ph-fill ph-fire"></i></div>
+                        <div class="stat-info">
+                            <h3>14 Days</h3>
+                            <p>Daily Streak</p>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-panel pop-in" style="animation-delay: 0.2s">
+                        <div class="stat-icon" style="background: var(--secondary-light); color: var(--secondary);"><i class="ph-fill ph-clock"></i></div>
+                        <div class="stat-info">
+                            <h3>42 Hours</h3>
+                            <p>Studied</p>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-panel pop-in" style="animation-delay: 0.3s">
+                        <div class="stat-icon" style="background: var(--accent-light); color: var(--accent);"><i class="ph-fill ph-star"></i></div>
+                        <div class="stat-info">
+                            <h3>2,450 XP</h3>
+                            <p>Current Level 12</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Motivation & Progress -->
+                <div class="main-widgets">
+                    <div class="quote-card premium-gradient text-white slide-in-left">
+                        <i class="ph-fill ph-quotes text-white-50"></i>
+                        <h2>"Consistency beats talent 🔥"</h2>
+                        <p>Keep pushing. You are 20% closer to mastering React this week.</p>
+                    </div>
+
+                    <div class="goals-card glass-panel slide-in-right">
+                        <div class="card-header">
+                            <h3>Today's Goals</h3>
+                            <button class="btn-text">View All</button>
+                        </div>
+                        <ul class="task-list">
+                            <li class="task-item completed">
+                                <i class="ph-fill ph-check-circle"></i>
+                                <span>Complete Array Sorting Module</span>
+                                <span class="xp-badge">+50 XP</span>
+                            </li>
+                            <li class="task-item">
+                                <i class="ph ph-circle"></i>
+                                <span>Watch Next.js Routing Video</span>
+                                <span class="xp-badge">+30 XP</span>
+                            </li>
+                            <li class="task-item">
+                                <i class="ph ph-circle"></i>
+                                <span>Solve 2 LeetCode Mediums</span>
+                                <span class="xp-badge">+100 XP</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Weekly Progress & Badges -->
+                <div class="bottom-widgets">
+                    <div class="progress-card glass-panel">
+                        <h3>Weekly Progress</h3>
+                        <div class="chart-container-small">
+                            <canvas id="weeklyChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="badges-card glass-panel">
+                        <h3>Recent Achievements</h3>
+                        <div class="badge-grid">
+                            <div class="achievement-badge tooltip" data-tip="7 Day Streak">
+                                <img src="https://api.dicebear.com/7.x/icons/svg?seed=fire&backgroundColor=ffedd5" alt="Streak">
+                            </div>
+                            <div class="achievement-badge tooltip" data-tip="DSA Beginner">
+                                <img src="https://api.dicebear.com/7.x/icons/svg?seed=code&backgroundColor=e0e7ff" alt="DSA">
+                            </div>
+                            <div class="achievement-badge tooltip" data-tip="Early Bird">
+                                <img src="https://api.dicebear.com/7.x/icons/svg?seed=sun&backgroundColor=fef3c7" alt="Bird">
+                            </div>
+                            <div class="achievement-badge empty">
+                                <i class="ph ph-lock-key"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 4: Goal Selection -->
+        <section id="goals" class="screen with-sidebar">
+            <header class="dashboard-header">
+                <div>
+                    <h1>Explore Goals 🎯</h1>
+                    <p class="subtitle">What do you want to master next?</p>
+                </div>
+            </header>
+            
+            <div class="category-filters">
+                <button class="btn-filter active">All</button>
+                <button class="btn-filter">Development</button>
+                <button class="btn-filter">Core CS</button>
+                <button class="btn-filter">Data & AI</button>
+            </div>
+
+            <div class="goals-grid mt-4">
+                <!-- Goal Cards generated by JS -->
+            </div>
+        </section>
+
+        <!-- Screen 5: Personalized Learning Path -->
+        <section id="path" class="screen with-sidebar">
+            <header class="dashboard-header">
+                <div>
+                    <div class="badge-pill badge-primary mb-2">Active Roadmap</div>
+                    <h1>Master Data Structures & Algorithms</h1>
+                    <p class="subtitle">Estimated completion: 8 Weeks • 65% Completed</p>
+                </div>
+                <div class="circular-progress-container">
+                    <div class="circular-progress" style="--progress: 65deg;">
+                        <span class="progress-value">65%</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="timeline-container mt-4">
+                <div class="timeline-line"></div>
+                
+                <div class="timeline-card completed">
+                    <div class="timeline-dot"><i class="ph-bold ph-check"></i></div>
+                    <div class="glass-panel">
+                        <div class="timeline-header">
+                            <span class="week-label">Week 1</span>
+                            <span class="status-label">Completed</span>
+                        </div>
+                        <h3>Arrays, Sorting, Searching</h3>
+                        <p>Master the foundational building blocks of DSA.</p>
+                        <div class="progress-bar-container mt-2"><div class="progress-bar" style="width: 100%; background: var(--success)"></div></div>
+                    </div>
+                </div>
+
+                <div class="timeline-card completed">
+                    <div class="timeline-dot"><i class="ph-bold ph-check"></i></div>
+                    <div class="glass-panel">
+                        <div class="timeline-header">
+                            <span class="week-label">Week 2</span>
+                            <span class="status-label">Completed</span>
+                        </div>
+                        <h3>Recursion & Binary Search</h3>
+                        <p>Learn to break down problems and search efficiently.</p>
+                        <div class="progress-bar-container mt-2"><div class="progress-bar" style="width: 100%; background: var(--success)"></div></div>
+                    </div>
+                </div>
+
+                <div class="timeline-card active pulse-light">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-panel border-primary">
+                        <div class="timeline-header">
+                            <span class="week-label">Week 3</span>
+                            <span class="status-label text-primary">In Progress</span>
+                        </div>
+                        <h3>Linked Lists, Stacks, Queues</h3>
+                        <p>Understand linear data structures and their applications.</p>
+                        <div class="module-list mt-3">
+                            <div class="module-item completed"><i class="ph-fill ph-check-circle"></i> Singly Linked List</div>
+                            <div class="module-item"><i class="ph ph-circle"></i> Doubly Linked List</div>
+                            <div class="module-item"><i class="ph ph-circle"></i> Stack Implementation</div>
+                        </div>
+                        <div class="progress-bar-container mt-3"><div class="progress-bar" style="width: 33%;"></div></div>
+                        <button class="btn btn-primary mt-3">Continue Learning</button>
+                    </div>
+                </div>
+
+                <div class="timeline-card locked">
+                    <div class="timeline-dot"><i class="ph-fill ph-lock-key"></i></div>
+                    <div class="glass-panel opacity-70">
+                        <div class="timeline-header">
+                            <span class="week-label">Week 4</span>
+                            <span class="status-label">Locked</span>
+                        </div>
+                        <h3>Trees & Graphs</h3>
+                        <p>Dive into non-linear data structures.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 6: Smart Resource Hub -->
+        <section id="resources" class="screen with-sidebar">
+            <header class="dashboard-header flex-column">
+                <div class="w-100 flex-between">
+                    <div>
+                        <h1>Resource Hub 📚</h1>
+                        <p class="subtitle">Curated top-tier content, no junk.</p>
+                    </div>
+                </div>
+                <div class="search-bar-container mt-3">
+                    <i class="ph ph-magnifying-glass search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Search for 'Dynamic Programming' or 'React Hooks'...">
+                    <button class="btn btn-primary">Search</button>
+                </div>
+            </header>
+            
+            <div class="resource-filters mt-4">
+                <div class="chip active">All Resources</div>
+                <div class="chip"><i class="ph-fill ph-youtube-logo text-red"></i> Videos</div>
+                <div class="chip"><i class="ph-fill ph-github-logo text-dark"></i> GitHub</div>
+                <div class="chip"><i class="ph-fill ph-file-pdf text-orange"></i> PDFs</div>
+                <div class="chip"><i class="ph-fill ph-code text-primary"></i> Practice</div>
+            </div>
+
+            <div class="resources-grid mt-4">
+                <!-- Resource Cards -->
+                <div class="resource-card glass-panel">
+                    <div class="resource-image">
+                        <img src="https://images.unsplash.com/photo-1610563166150-b34df4f3bcd6?auto=format&fit=crop&w=400&q=80" alt="Video">
+                        <div class="resource-type youtube"><i class="ph-fill ph-play-circle"></i></div>
+                    </div>
+                    <div class="resource-content">
+                        <div class="resource-meta">
+                            <span class="badge-subtle badge-green">Beginner</span>
+                            <span class="duration"><i class="ph ph-clock"></i> 4h 20m</span>
+                        </div>
+                        <h3>Complete Web Development Bootcamp</h3>
+                        <p>The ultimate guide to building modern web applications from scratch.</p>
+                        <div class="resource-stats mt-2">
+                            <span><i class="ph-fill ph-star text-yellow"></i> 4.9</span>
+                            <span><i class="ph-fill ph-users"></i> 12k students</span>
+                        </div>
+                        <div class="resource-actions mt-3">
+                            <button class="btn btn-primary btn-sm w-100">Start Watching</button>
+                            <button class="btn-icon-subtle"><i class="ph ph-bookmark-simple"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card glass-panel">
+                    <div class="resource-image">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=400&q=80" alt="GitHub">
+                        <div class="resource-type github"><i class="ph-fill ph-github-logo"></i></div>
+                    </div>
+                    <div class="resource-content">
+                        <div class="resource-meta">
+                            <span class="badge-subtle badge-orange">Intermediate</span>
+                            <span class="duration"><i class="ph ph-file-code"></i> 50+ Projects</span>
+                        </div>
+                        <h3>Awesome JS Projects</h3>
+                        <p>A curated list of JavaScript projects to build your portfolio.</p>
+                        <div class="resource-stats mt-2">
+                            <span><i class="ph-fill ph-star text-yellow"></i> 4.8</span>
+                            <span><i class="ph-fill ph-git-fork"></i> 3.2k forks</span>
+                        </div>
+                        <div class="resource-actions mt-3">
+                            <button class="btn btn-secondary btn-sm w-100">View Repository</button>
+                            <button class="btn-icon-subtle"><i class="ph-fill ph-bookmark-simple text-primary"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card glass-panel">
+                    <div class="resource-image">
+                        <img src="https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&w=400&q=80" alt="PDF">
+                        <div class="resource-type pdf"><i class="ph-fill ph-file-pdf"></i></div>
+                    </div>
+                    <div class="resource-content">
+                        <div class="resource-meta">
+                            <span class="badge-subtle badge-blue">Advanced</span>
+                            <span class="duration"><i class="ph ph-book-open"></i> 120 Pages</span>
+                        </div>
+                        <h3>System Design Interview Guide</h3>
+                        <p>Comprehensive notes for cracking system design rounds.</p>
+                        <div class="resource-stats mt-2">
+                            <span><i class="ph-fill ph-star text-yellow"></i> 4.9</span>
+                            <span><i class="ph-fill ph-download-simple"></i> 8.5k dl</span>
+                        </div>
+                        <div class="resource-actions mt-3">
+                            <button class="btn btn-secondary btn-sm w-100">Download PDF</button>
+                            <button class="btn-icon-subtle"><i class="ph ph-bookmark-simple"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 7: AI Learning Assistant -->
+        <section id="ai" class="screen with-sidebar">
+            <div class="ai-container glass-panel h-100">
+                <div class="ai-header">
+                    <div class="ai-avatar pulse-light">
+                        <i class="ph-fill ph-robot"></i>
+                    </div>
+                    <div>
+                        <h2>LearnFlow AI</h2>
+                        <p>Your personal learning guide</p>
+                    </div>
+                </div>
+                
+                <div class="ai-chat-area" id="ai-chat">
+                    <div class="chat-message ai-message">
+                        <div class="msg-avatar"><i class="ph-fill ph-robot"></i></div>
+                        <div class="msg-content">
+                            <p>Hi Alex! 👋 I'm here to help you learn faster. What do you need help with today?</p>
+                            <div class="suggestion-chips mt-2">
+                                <span class="chip chip-sm" onclick="sendAiMessage('Best DSA playlist for beginners')">"Best DSA playlist for beginners"</span>
+                                <span class="chip chip-sm" onclick="sendAiMessage('Best DBMS videos for semester exam')">"Best DBMS videos for semester exam"</span>
+                                <span class="chip chip-sm" onclick="sendAiMessage('Best placement roadmap')">"Best placement roadmap"</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ai-input-area">
+                    <input type="text" id="ai-input" placeholder="Ask anything... e.g., 'Explain Recursion simply'">
+                    <button class="btn-icon btn-primary" onclick="handleAiSubmit()"><i class="ph-fill ph-paper-plane-right"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 8: Focus Mode -->
+        <section id="focus" class="screen focus-theme">
+            <div class="focus-wrapper">
+                <button class="btn-text text-white mb-4" onclick="navigateTo('home')"><i class="ph ph-arrow-left"></i> Exit Focus Mode</button>
+                
+                <div class="focus-header text-center text-white">
+                    <h2 class="slide-down">"Stay focused. Your goals are waiting 🎯"</h2>
+                </div>
+
+                <div class="timer-container glass-panel-dark pop-in mt-5">
+                    <div class="timer-display" id="focus-timer">25:00</div>
+                    <p class="timer-label text-white-50">Focus Session</p>
+                    
+                    <div class="timer-controls mt-4">
+                        <button class="btn-icon-large btn-white" id="timer-toggle"><i class="ph-fill ph-play"></i></button>
+                        <button class="btn-icon-large btn-white-outline" id="timer-reset"><i class="ph-bold ph-arrow-counter-clockwise"></i></button>
+                    </div>
+                </div>
+
+                <div class="focus-widgets mt-5">
+                    <div class="glass-panel-dark text-white w-card">
+                        <h3>Session Tracking</h3>
+                        <div class="d-flex justify-between mt-3">
+                            <span>Sessions today:</span>
+                            <span class="text-primary-light font-bold">3 / 4</span>
+                        </div>
+                        <div class="progress-bar-container mt-2 bg-dark"><div class="progress-bar bg-primary-light" style="width: 75%"></div></div>
+                    </div>
+
+                    <div class="glass-panel-dark text-white w-card">
+                        <h3>Focus Music</h3>
+                        <div class="music-player mt-3">
+                            <div class="d-flex align-center gap-2">
+                                <div class="music-icon pulse-light"><i class="ph-fill ph-headphones"></i></div>
+                                <div>
+                                    <div class="font-bold">Deep Focus Beats</div>
+                                    <div class="text-sm text-white-50">Lo-Fi Study</div>
+                                </div>
+                            </div>
+                            <button class="btn-icon btn-white-outline btn-sm"><i class="ph-fill ph-play"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 9: Progress Analytics -->
+        <section id="analytics" class="screen with-sidebar">
+            <header class="dashboard-header">
+                <div>
+                    <h1>Your Progress 📈</h1>
+                    <p class="subtitle">Data-driven insights to learn better.</p>
+                </div>
+            </header>
+
+            <div class="analytics-grid mt-4">
+                <div class="glass-panel chart-card col-span-2">
+                    <h3>Weekly Growth (Hours)</h3>
+                    <div class="chart-container-large">
+                        <canvas id="growthChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="glass-panel chart-card">
+                    <h3>Topics Completed</h3>
+                    <div class="chart-container-pie">
+                        <canvas id="topicsChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="glass-panel highlight-card bg-gradient-primary text-white">
+                    <div class="d-flex justify-between align-center">
+                        <div>
+                            <h2 class="text-white">Learning Streak</h2>
+                            <div class="text-4xl font-black mt-2">14 Days 🔥</div>
+                        </div>
+                        <i class="ph-fill ph-flame text-6xl opacity-50"></i>
+                    </div>
+                    <p class="mt-3 opacity-90">You're in the top 10% of active learners this week!</p>
+                </div>
+
+                <div class="glass-panel highlight-card bg-gradient-secondary text-white">
+                    <div class="d-flex justify-between align-center">
+                        <div>
+                            <h2 class="text-white">Weak Areas Detected</h2>
+                            <div class="text-xl font-bold mt-2">Dynamic Programming</div>
+                        </div>
+                        <i class="ph-fill ph-target text-6xl opacity-50"></i>
+                    </div>
+                    <button class="btn btn-white btn-sm mt-3 text-secondary">Review Concepts</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 10: Community -->
+        <section id="community" class="screen with-sidebar">
+            <header class="dashboard-header">
+                <div>
+                    <h1>Community 🌍</h1>
+                    <p class="subtitle">Learn together, grow together.</p>
+                </div>
+                <button class="btn btn-primary"><i class="ph-bold ph-plus"></i> Create Post</button>
+            </header>
+
+            <div class="community-layout mt-4">
+                <div class="feed-column">
+                    <!-- Post 1 -->
+                    <div class="glass-panel post-card">
+                        <div class="post-header">
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah&backgroundColor=ffdfbf" alt="User" class="avatar-sm">
+                            <div class="post-meta">
+                                <strong>Sarah Jenkins</strong> <span class="badge-sm badge-blue">Level 24</span>
+                                <div class="text-xs text-muted">2 hours ago • in Web Dev</div>
+                            </div>
+                        </div>
+                        <h3 class="mt-3">Just finished my first React app! 🚀</h3>
+                        <p class="mt-2 text-muted">Thanks to the roadmap on LearnFlow, I finally understood hooks. Here's a link to my weather app project. Any feedback is welcome!</p>
+                        <div class="post-image-placeholder mt-3 bg-light rounded d-flex align-center justify-center" style="height: 200px;">
+                            <i class="ph-fill ph-image text-4xl text-muted"></i>
+                        </div>
+                        <div class="post-actions mt-3 border-top pt-3">
+                            <button class="btn-action active"><i class="ph-fill ph-arrow-fat-up text-primary"></i> 245</button>
+                            <button class="btn-action"><i class="ph ph-chat-circle"></i> 42</button>
+                            <button class="btn-action"><i class="ph ph-share-network"></i> Share</button>
+                        </div>
+                    </div>
+
+                    <!-- Post 2 -->
+                    <div class="glass-panel post-card mt-4">
+                        <div class="post-header">
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Mike&backgroundColor=c0aede" alt="User" class="avatar-sm">
+                            <div class="post-meta">
+                                <strong>Mike Ross</strong> <span class="badge-sm badge-orange">Level 18</span>
+                                <div class="text-xs text-muted">5 hours ago • in DSA</div>
+                            </div>
+                        </div>
+                        <h3 class="mt-3">Best resources for Graph Algorithms?</h3>
+                        <p class="mt-2 text-muted">I'm struggling with Dijkstra and BFS/DFS applications. Anyone has good notes or playlists that simplify this?</p>
+                        <div class="post-actions mt-3 border-top pt-3">
+                            <button class="btn-action"><i class="ph ph-arrow-fat-up"></i> 89</button>
+                            <button class="btn-action"><i class="ph ph-chat-circle"></i> 15</button>
+                            <button class="btn-action"><i class="ph ph-share-network"></i> Share</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-column">
+                    <div class="glass-panel sticky-top">
+                        <h3>Leaderboard 🏆</h3>
+                        <p class="text-sm text-muted mb-3">Top learners this week</p>
+                        <ul class="leaderboard-list">
+                            <li class="leaderboard-item top-1">
+                                <span class="rank">1</span>
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Emma&backgroundColor=ffdfbf" alt="User" class="avatar-xs">
+                                <span class="name">Emma W.</span>
+                                <span class="xp">4,200 XP</span>
+                            </li>
+                            <li class="leaderboard-item top-2">
+                                <span class="rank">2</span>
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=David&backgroundColor=b6e3f4" alt="User" class="avatar-xs">
+                                <span class="name">David K.</span>
+                                <span class="xp">3,850 XP</span>
+                            </li>
+                            <li class="leaderboard-item top-3">
+                                <span class="rank">3</span>
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex&backgroundColor=b6e3f4" alt="User" class="avatar-xs">
+                                <span class="name">Alex Doe (You)</span>
+                                <span class="xp">3,120 XP</span>
+                            </li>
+                            <li class="leaderboard-item">
+                                <span class="rank">4</span>
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=John&backgroundColor=c0aede" alt="User" class="avatar-xs">
+                                <span class="name">John S.</span>
+                                <span class="xp">2,900 XP</span>
+                            </li>
+                        </ul>
+                        
+                        <h3 class="mt-4 pt-4 border-top">Weekly Challenge 🎯</h3>
+                        <div class="challenge-card mt-2 bg-light-orange rounded p-3">
+                            <div class="font-bold text-orange">Solve 10 DSA Problems</div>
+                            <div class="progress-bar-container mt-2"><div class="progress-bar bg-orange" style="width: 40%"></div></div>
+                            <div class="text-sm mt-1 text-right">4/10</div>
+                            <button class="btn btn-outline-orange btn-sm w-100 mt-2">Earn 500 XP</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
